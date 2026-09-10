@@ -1,0 +1,89 @@
+/* ============================================================
+   Print binder — paper layout.
+   Loads after binder.css and overrides it for a document feel.
+   ============================================================ */
+
+@page { size: A4 portrait; margin: 14mm 14mm 16mm; }
+
+:root { --paper: #fff; --panel: #fff; color-scheme: light; }
+
+body { background: #8b8b8b; }
+
+.toolbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px;
+  background: #1c1d20; color: #eee;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+}
+.toolbar b { color: var(--accent); font-weight: 500; }
+.toolbar .grow { flex: 1; }
+.toolbar a, .toolbar button {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: #eee; background: none;
+  border: 1px solid #45474d; border-radius: 4px;
+  padding: 7px 13px; cursor: pointer; text-decoration: none;
+}
+.toolbar button { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.sheet-stack { padding: 26px 0 60px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+
+.sheet {
+  width: 210mm; min-height: 297mm;
+  padding: 14mm 14mm 16mm;
+  background: #fff; color: #000;
+  box-shadow: 0 6px 26px rgba(0,0,0,.32);
+  display: flex; flex-direction: column;
+}
+
+/* Cover */
+.cover { justify-content: center; align-items: center; text-align: center; }
+.cover img { width: 62mm; margin-bottom: 12mm; }
+.cover .kicker { font-family: var(--font-mono); font-size: 10pt; letter-spacing: .3em; text-transform: uppercase; color: #666; }
+.cover h1 { font-size: 40pt; font-weight: 800; font-style: italic; letter-spacing: -.03em; margin: 6mm 0 4mm; }
+.cover .sub { font-size: 12pt; color: #333; max-width: 120mm; }
+.cover .rule { width: 40mm; height: 2px; background: var(--accent); margin: 8mm 0; }
+
+/* Table of contents */
+.p-toc h2 { font-size: 22pt; margin-bottom: 8mm; }
+.p-toc .grp { font-family: var(--font-mono); font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: #777; margin: 7mm 0 2mm; border-bottom: 1px solid #ccc; padding-bottom: 2mm; }
+.p-toc .row { display: flex; align-items: baseline; gap: 3mm; padding: 2.2mm 0; font-size: 11pt; }
+.p-toc .row .n { font-family: var(--font-mono); font-size: 9pt; color: var(--accent); width: 8mm; }
+.p-toc .row .d { flex: 1; border-bottom: 1px dotted #bbb; transform: translateY(-1mm); }
+.p-toc .row .pg { font-family: var(--font-mono); font-size: 9pt; color: #555; }
+
+/* Section pages */
+.p-sec .eyebrow { font-size: 8.5pt; letter-spacing: .2em; }
+.p-sec h2 { font-size: 26pt; font-weight: 800; letter-spacing: -.03em; margin: 2mm 0 3mm; }
+.p-sec .thesis { font-size: 11pt; color: #333; max-width: 150mm; padding-bottom: 5mm; border-bottom: 1px solid #ddd; }
+
+.p-cols { display: grid; grid-template-columns: 52mm 1fr; gap: 8mm; margin-top: 6mm; }
+.p-cols.solo { grid-template-columns: 1fr; }
+.p-lab { font-family: var(--font-mono); font-size: 8pt; letter-spacing: .2em; text-transform: uppercase; color: #777; border-bottom: 1px solid #ccc; padding-bottom: 2mm; margin-bottom: 3mm; }
+
+.p-feat > li { position: relative; padding: 1.8mm 0 1.8mm 5mm; font-size: 10pt; border-bottom: 1px solid #f0f0f0; }
+.p-feat > li::before { content: ""; position: absolute; left: 0; top: 4.6mm; width: 3mm; height: 1px; background: var(--accent); }
+.p-feat ul li { position: relative; padding: 1mm 0 1mm 4mm; font-size: 9pt; color: #444; }
+.p-feat ul li::before { content: ""; position: absolute; left: .8mm; top: 3.4mm; width: 1.4mm; height: 1.4mm; border-radius: 50%; border: .5px solid #888; }
+
+.p-figs { display: grid; gap: 4mm; margin-top: 6mm; }
+.p-figs.c2 { grid-template-columns: 1fr 1fr; }
+.p-figs.c3 { grid-template-columns: 1fr 1fr 1fr; }
+.p-figs .wide { grid-column: 1 / -1; }
+.p-figs figure { margin: 0; }
+.p-figs .box { background: #fff; border: 1px solid #ddd; padding: 2mm; display: grid; place-items: center; }
+.p-figs .box img { max-height: 78mm; width: auto; max-width: 100%; }
+.p-figs .wide .box img { max-height: 100mm; }
+.p-figs figcaption { font-family: var(--font-mono); font-size: 7.5pt; color: #666; margin-top: 1.5mm; }
+
+.p-foot { margin-top: auto; padding-top: 5mm; display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 7.5pt; letter-spacing: .1em; text-transform: uppercase; color: #999; }
+
+@media print {
+  body { background: #fff; }
+  .toolbar { display: none !important; }
+  .sheet-stack { padding: 0; gap: 0; display: block; }
+  .sheet { width: auto; min-height: 0; padding: 0; box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+  .cover { min-height: 250mm; }
+}

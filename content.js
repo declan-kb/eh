@@ -1,0 +1,252 @@
+/* ============================================================
+   TECHNICAL BINDER — CONTENT
+   ------------------------------------------------------------
+   This is the only file most people need to touch.
+   It is plain JSON wrapped in one line of JavaScript so the site
+   works when you just double-click index.html (no web server).
+
+   Rules:
+     - Every section needs: id, category, title, thesis
+     - "thesis" is the one-line summary shown under the title
+     - "features" is an optional bullet list; leave [] to hide it
+     - "media" is a list of blocks, rendered top to bottom. Every
+       block type below can take an optional "label" — it prints
+       as a small heading above the block (e.g. "Prototyping").
+     - In any text you can use **bold** and `code`
+   ============================================================ */
+
+window.BINDER_CONTENT = {
+
+  team: {
+    number: "6996",
+    name: "Koalafied",
+    season: "2026",
+    robot: "LEMON LAUNCHER",
+    tagline: "Full-width slap-down intake feeding a spindexer hopper, into a 360° turreted shooter. And an L1 climb.",
+    accent: "#12706f",
+    logo: "assets/img/logo.svg"
+  },
+
+  hero: {
+    image: "assets/img/hero-robot.webp",
+    alt: "Full robot assembly, isometric view (placeholder)",
+    // Each callout can carry an optional `hl` (same camera as `image` above,
+    // that one system left solid). When present, a "Highlight a system" pill
+    // row appears under the hero and clicking a pill crossfades the hero
+    // image to it — same mechanism as a section's Main View. Omit `hl` and
+    // the callout is just a label, no pill.
+    callouts: [
+      { id: "shooter",   side: "left",  x: 36, y: 26, blurb: "Two flywheel motors for recovery time, packaged inside the turret diameter.",
+        hl: { src: "assets/img/hero-hl-shooter.webp", alt: "Full robot with the shooter highlighted (placeholder)" } },
+      { id: "intake",    side: "left",  x: 25, y: 51, blurb: "Full-width slap-down intake, over the bumper.",
+        hl: { src: "assets/img/hero-hl-intake.webp", alt: "Full robot with the intake highlighted (placeholder)" } },
+      { id: "spindexer", side: "left",  x: 44, y: 63, blurb: "2.67:1 rotating hopper at ~2200 RPM.",
+        hl: { src: "assets/img/hero-hl-spindexer.webp", alt: "Full robot with the spindexer highlighted (placeholder)" } },
+      { id: "climber",   side: "right", x: 58, y: 19, blurb: "Single stage with a mechanical anti-rollback brake.",
+        hl: { src: "assets/img/hero-hl-climber.webp", alt: "Full robot with the climber highlighted (placeholder)" } },
+      { id: "turret",    side: "right", x: 49, y: 36, blurb: "54:1 on a lazy-susan bearing, 360° of motion.",
+        hl: { src: "assets/img/hero-hl-turret.webp", alt: "Full robot with the turret highlighted (placeholder)" } },
+      { id: "kicker",    side: "right", x: 59, y: 52, blurb: "1.27:1 reversal gearbox into the shooter.",
+        hl: { src: "assets/img/hero-hl-kicker.webp", alt: "Full robot with the kicker highlighted (placeholder)" } }
+    ]
+  },
+
+  categories: [
+    { id: "mechanical", label: "Mechanical" }
+  ],
+
+  /* ------------------------------------------------------------
+     STANDARD MEDIA COMPONENTS — copy/paste starting points
+     ------------------------------------------------------------
+
+     // Main view. Give it 2+ views and pills appear to isolate
+     // a sub-system; give it 1 view and it's just a plain image.
+     // No `alt` here on purpose — the note is shown as visible text right
+     // below the image, so a screen reader would just hear it twice.
+     { type: "highlight", label: "Main View", views: [
+         { tag: "Full Assembly", src: "…", note: "…" },
+         { tag: "Gearbox",       src: "…", note: "…" }
+     ]}
+
+     // Prototyping / inspiration photos AND Alternate Views — combined
+     // into one fixed-height carousel with prev/next arrows. `tag` is
+     // optional per item; use it to mark which images are which when you
+     // mix the two (e.g. "Alternate View" vs "Prototyping").
+     { type: "carousel", label: "Prototyping", items: [
+         { tag: "Alternate View", src: "…", alt: "…", caption: "…" },
+         { tag: "Prototyping",    src: "…", alt: "…", caption: "…" }
+     ]}
+
+     // Version slider.
+     { type: "iterations", label: "Iterations", versions: [
+         { tag: "V1", src: "…", alt: "…", note: "…" }
+     ]}
+
+     // Draggable before/after wipe. Used by Block Model.
+     { type: "compare", label: "…", caption: "…",
+         before: { src: "…", alt: "…", tag: "Before" },
+         after:  { src: "…", alt: "…", tag: "After" } }
+
+     // A plain grid of images — still available, just not used by any
+     // section right now (carousel replaced its two prior uses here).
+     { type: "figures", label: "…", cols: 2, items: [
+         { src: "…", alt: "…", caption: "…" }
+     ]}
+     ------------------------------------------------------------ */
+
+  sections: [
+
+    {
+      id: "block-model",
+      category: "mechanical",
+      title: "Block Model",
+      thesis: "Rough space and weight were allocated for every mechanism before a single part was detailed.",
+      features: [
+        { text: "Very complex packaging to maximise ball space" },
+        { text: "Block model used to allocate rough space and weight for all mechanisms", children: [
+          "Reduces risk of collision",
+          "Ensures below legal weight",
+          "Rough centre of gravity important for climb planning"
+        ]}
+      ],
+      media: [
+        { type: "compare", label: "Block Model vs. Final CAD",
+          before: { src: "assets/img/block-model.webp", alt: "Block model of the robot (placeholder)", tag: "Block Model" },
+          after:  { src: "assets/img/robot-final-cad.webp", alt: "Final detailed robot CAD (placeholder)", tag: "Final CAD" },
+          caption: "Drag to compare the block model against the final assembly." }
+      ]
+    },
+
+    {
+      id: "intake",
+      category: "mechanical",
+      title: "Intake",
+      thesis: "A full-width, over-the-bumper linear intake.",
+      features: [
+        { text: "Linear Intake: hopper slides out with intake to expand space to store balls" },
+        { text: "Modular design: intake is replaceable seperate from gearboxes" },
+      ],
+      media: [
+        { type: "highlight", label: "Main View", views: [
+          { tag: "Full Assembly", src: "assets/img/intake-full.webp",
+            note: "Full-width roller across the front, pivoting on the drivebase rail." },
+          { tag: "Gearbox", src: "assets/img/intake-hl-gearbox.webp",
+            note: "Custom gearbox, mounted off the pivot arm to keep weight low." },
+          { tag: "Intake", src: "assets/img/intake-hl-roller.webp",
+            note: "The roller itself — the part that actually touches the ball." }
+        ]},
+        { type: "carousel", label: "Prototyping & Alternate Views", items: [
+          { tag: "Alternate View", src: "assets/img/intake-alt-gearbox.webp", alt: "Intake gearbox mechanism diagram (placeholder)",
+            caption: "How the gearbox works" },
+          { tag: "Prototyping", src: "assets/img/intake-proto-1.webp", alt: "Intake prototype 1 (placeholder)", caption: "Early linkage prototype" },
+          { tag: "Prototyping", src: "assets/img/intake-proto-2.webp", alt: "Intake prototype 2 (placeholder)", caption: "On-field roller testing" }
+        ]}
+      ]
+    },
+
+    {
+      id: "spindexer",
+      category: "mechanical",
+      title: "Spindexer & Kicker",
+      thesis: "A rotating hopper that holds and singulates balls into the shooter",
+      features: [
+        { text: "15t to 40t, running a **2.67 : 1** reduction" }
+      ],
+      media: [
+        { type: "highlight", label: "Main View", views: [
+          { tag: "Full Hopper", src: "assets/img/spindexer-full.webp",
+            note: "The hopper walls, doubling as bumper backing, around the spindexer module." },
+          { tag: "Spindexer Module", src: "assets/img/spindexer-hl-module.webp",
+            note: "The rotating module itself — belt-driven, 2.67:1, ~2200 RPM." }
+        ]},
+        { type: "carousel", label: "Prototyping", items: [
+          { tag: "Prototyping", src: "assets/img/kicker-proto-integration.webp", alt: "Kicker integration with spindexer and shooter (placeholder)",
+            caption: "Integration test — spindexer, kicker and shooter feed" }
+        ]}
+      ]
+    },
+
+    {
+      id: "shooter",
+      category: "mechanical",
+      title: "Shooter",
+      thesis: "A variable hood shooter, with a camera for targeting, to shoot the fuel into the hub.",
+      features: [
+        { text: "Complex packaging for the small diameter of the turret" },
+        { text: "2x motors to reduce recovery time" },
+        { text: "JE motor for the hood — small, with a built-in 22.2:1 reduction" },
+        { text: "Arducam mounted directly to the shooter for accuracy." }
+      ],
+      media: [
+        { type: "highlight", label: "Main View", views: [
+          { tag: "Full Assembly", src: "assets/img/shooter-full.webp",
+            note: "Flywheel, feed rollers and hood, packaged inside the turret envelope." },
+          { tag: "Rack & Pinion Hood", src: "assets/img/shooter-hl-hood.webp",
+            note: "The hood's rack-and-pinion drive — sets launch angle independent of flywheel speed." }
+        ]},
+        { type: "carousel", label: "Prototyping", items: [
+          { tag: "Prototyping", src: "assets/img/shooter-proto-1.webp", alt: "Shooter prototype 1 (placeholder)", caption: "Adjustable test rig" },
+          { tag: "Prototyping", src: "assets/img/shooter-proto-2.webp", alt: "Shooter prototype 2 (placeholder)", caption: "Cardboard hood mock-up" }
+        ]}
+      ]
+    },
+
+    {
+      id: "turret",
+      category: "mechanical",
+      title: "Turret",
+      thesis: "Allows targeting of the hub while on the move, anywhere on the field",
+      features: [
+        { text: ">360 degrees range of motion", children: [
+          "Limit switch module has a sliding hard stop"
+        ]},
+        { text: "Modular custom gearbox design with a 54:1 reduction" },
+        { text: "COTS 'lazy susan' bearing with a 3DP rack attached" },
+      ],
+      media: [
+        { type: "highlight", label: "Main View", views: [
+          { tag: "Full Assembly", src: "assets/img/turret-full.webp",
+            note: "The complete ring: lazy-susan bearing, 3D-printed rack, limit switch module and drive stage." },
+          { tag: "Limit Switch", src: "assets/img/turret-hl-limitswitch.webp",
+            note: "Sliding hard stop. Allows >360 degrees of rotation." },
+          { tag: "Gearbox", src: "assets/img/turret-hl-gearbox.webp",
+            note: "Kraken drives the gearbox with an overall 54:1 ratio" }
+        ]},
+        { type: "carousel", label: "Prototyping", items: [
+          { tag: "Prototyping", src: "assets/img/turret-proto-254.webp", alt: "254 energy chain inspiration (placeholder)",
+            caption: "Inspiration — 2022 FRC team 254 energy chain" },
+          { tag: "Prototyping", src: "assets/img/turret-proto-oldrobot.webp", alt: "Turret on prior year's robot (placeholder)",
+            caption: "Turret concept on last year's robot" }
+        ]}
+      ]
+    },
+
+    {
+      id: "climber",
+      category: "mechanical",
+      title: "Climber",
+      thesis: "A very compact single-stage climber with the brake built into the gearbox — anti-rollback with no software control needed.",
+      features: [
+        { text: "Very compact design", children: [
+          "Packaged to allow room for the shooter and energy chain"
+        ]},
+        { text: "Braking stage in the gearbox", children: [
+          "Past designs used servo or pneumatically actuated brakes",
+          "Anti-rollback mechanism: no software control needed"
+        ]},
+        { text: "Bottom locking jaw on the climber" }
+      ],
+      media: [
+        { type: "highlight", label: "Main View", views: [
+          { tag: "Full Assembly", src: "assets/img/climber-full.webp",
+            note: "Single stage, packaged around the shooter and turret energy chain." },
+          { tag: "Gearbox", src: "assets/img/climber-hl-gearbox.webp",
+            note: "Braking stage lives here — anti-rollback with no software control needed." },
+          { tag: "Hook", src: "assets/img/climber-hl-hook.webp",
+            note: "Bottom locking jaw, engages the bar and holds without power." }
+        ]}
+      ]
+    }
+
+  ]
+};

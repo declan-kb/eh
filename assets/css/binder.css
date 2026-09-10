@@ -1,0 +1,670 @@
+/* ============================================================
+   Technical Binder — stylesheet
+   Edit design tokens in :root. Everything else derives from them.
+   ============================================================ */
+
+/* ---- 1. Tokens ------------------------------------------- */
+
+:root {
+  --paper:    #f6f5f2;
+  --panel:    #fffefc;
+  --ink:      #15161a;
+  --ink-2:    #4c4f57;
+  --ink-3:    #696c74;
+  --rule:     #e2e0d9;
+  --rule-2:   #efedE7;
+  --accent:   #12706f;          /* overridden at runtime by team.accent */
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+
+  --font-display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --measure: 68ch;
+  --gutter: clamp(20px, 5vw, 72px);
+  --nav-h: 58px;
+
+  color-scheme: light;
+}
+
+/* ---- 2. Reset -------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; }
+p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+::selection { background: var(--accent); color: #fff; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--ink); color: var(--paper); padding: 10px 16px;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.skip:focus { left: 8px; top: 8px; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-inline: var(--gutter); }
+
+/* Shared type helpers */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.muted { color: var(--ink-2); }
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--rule-2);
+  padding: 0.1em 0.36em;
+  border-radius: 3px;
+}
+
+/* ---- 3. Navigation --------------------------------------- */
+
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-in { height: 100%; display: flex; align-items: center; gap: 24px; }
+
+.wordmark {
+  display: flex; align-items: baseline; gap: 10px;
+  text-decoration: none; flex: none;
+}
+.wordmark-mark { width: 26px; height: 26px; align-self: center; flex: none; }
+.wordmark-a { font-family: var(--font-display); font-weight: 400; font-size: 17px; letter-spacing: 0.06em; }
+.wordmark-b { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: 0.02em; }
+.wordmark-tag {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink-3);
+  padding-left: 10px; border-left: 1px solid var(--rule);
+}
+.wordmark-tag b { color: var(--accent); font-weight: 500; }
+
+.nav-links { display: flex; gap: 4px; margin-left: auto; }
+.nav-links a {
+  font-size: 13px; text-decoration: none; color: var(--ink-2);
+  padding: 6px 11px; border-radius: 4px;
+  transition: color .15s, background .15s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--ink); background: var(--rule-2); }
+.nav-links a.is-active { color: var(--ink); }
+.nav-links a.is-active::after {
+  content: ""; display: block; height: 1.5px; background: var(--accent);
+  margin-top: 3px; border-radius: 2px;
+}
+
+.nav-tools { display: flex; align-items: center; gap: 6px; flex: none; }
+.icon-btn {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  background: none; border: 1px solid transparent; border-radius: 5px;
+  cursor: pointer; color: var(--ink-2);
+}
+.icon-btn:hover { border-color: var(--rule); color: var(--ink); }
+.icon-btn svg { width: 15px; height: 15px; }
+
+/* Contents button: opens the full section list (menu-panel). Shown at every
+   width — on wide screens it sits alongside the category links, on narrow
+   ones it's the only way to jump to a section since nav-links hides. */
+.nav-menu-btn {
+  width: auto; padding: 0 12px 0 9px; gap: 7px;
+  display: flex; align-items: center;
+}
+.nav-menu-btn svg { flex: none; }
+.nav-menu-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: inherit;
+}
+@media (max-width: 500px) { .nav-menu-label { display: none; } .nav-menu-btn { width: 32px; padding: 0; } }
+
+@media (max-width: 940px) {
+  .nav-links { display: none; }
+  .wordmark-tag { display: none; }
+}
+
+/* Slide-down section menu (mobile) */
+.menu-panel {
+  position: fixed; inset: var(--nav-h) 0 auto 0; z-index: 99;
+  background: var(--panel); border-bottom: 1px solid var(--rule);
+  max-height: calc(100vh - var(--nav-h)); overflow-y: auto;
+  padding: 12px var(--gutter) 24px;
+}
+.menu-panel[hidden] { display: none !important; }
+.menu-group { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin: 16px 0 6px; }
+.menu-panel a { display: flex; gap: 12px; padding: 9px 0; text-decoration: none; border-bottom: 1px solid var(--rule-2); font-size: 15px; }
+.menu-panel a span:first-child { font-family: var(--font-mono); color: var(--accent); font-size: 12px; padding-top: 3px; }
+
+/* ---- 4. Hero --------------------------------------------- */
+
+.hero { padding: clamp(40px, 7vw, 88px) 0 clamp(48px, 8vw, 104px); }
+.hero-meta { text-align: center; }
+.hero-title {
+  font-size: clamp(2.4rem, 8.5vw, 6.75rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  /* letter-spacing above tightens every character gap, including the one
+     around the space — word-spacing adds it back just at word breaks. */
+  word-spacing: 0.3em;
+  line-height: 0.86;
+  margin: 14px 0 0;
+  font-style: italic;
+}
+.hero-sub {
+  max-width: 46ch; margin: 22px auto 0;
+  color: var(--ink-2); font-size: clamp(15px, 1.6vw, 18px);
+}
+
+.hero .wrap { max-width: 1460px; }
+.hero-meta { max-width: 1240px; margin-inline: auto; }
+
+.hero-stage {
+  position: relative;
+  margin-top: clamp(28px, 4vw, 52px);
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(0, 2.7fr) minmax(160px, 1fr);
+  gap: clamp(12px, 2.5vw, 40px);
+  align-items: center;
+}
+.hero-figure { grid-column: 2; position: relative; aspect-ratio: var(--ar, 4 / 3); }
+.hero-frame {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain; opacity: 0; transition: opacity .28s ease;
+  pointer-events: none; /* only the visible frame below should catch clicks */
+}
+.hero-frame.is-on { opacity: 1; pointer-events: auto; cursor: zoom-in; }
+@media (prefers-reduced-motion: reduce) { .hero-frame { transition: none; } }
+
+.hero-lines {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible; z-index: 1;
+}
+.hero-lines path { fill: none; stroke: var(--ink-3); stroke-width: 1; opacity: .5; }
+
+.hero-dot {
+  position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%; background: var(--paper);
+  border: 1.5px solid var(--accent); z-index: 3; pointer-events: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.hero-dot.is-lit { transform: scale(1.45); box-shadow: 0 0 0 6px var(--accent-soft); }
+
+.hero-rail { display: flex; flex-direction: column; gap: clamp(14px, 3vw, 30px); z-index: 2; }
+.hero-rail-l { grid-column: 1; text-align: right; align-items: flex-end; }
+.hero-rail-r { grid-column: 3; text-align: left; align-items: flex-start; }
+
+.callout { text-decoration: none; display: block; max-width: 230px; }
+.callout-name {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink);
+  display: block; margin-bottom: 4px;
+  transition: color .15s;
+}
+.callout-blurb { font-size: 12.5px; line-height: 1.45; color: var(--ink-3); }
+.callout:hover .callout-name { color: var(--accent); }
+
+.hero-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
+.hero-skip {
+  display: block; width: fit-content; margin: clamp(20px, 3vw, 32px) auto 0;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-3); text-decoration: none;
+}
+.hero-skip:hover { color: var(--accent); }
+.hero-skip::after { content: " ↓"; }
+
+@media (max-width: 900px) {
+  /* Just the image — no leader lines (nothing for them to point at) and no
+     label rail. The callouts still exist for the "Highlight a system"
+     pills below the image; only their name/blurb list is hidden here. */
+  .hero-stage { display: flex; flex-direction: column; }
+  .hero-lines, .hero-dot, .hero-rail { display: none; }
+  /* Every .hero-frame is position:absolute (for the crossfade), so
+     .hero-figure has no in-flow content to size itself from — it needs an
+     explicit width here, since this flex column doesn't stretch its items
+     to fill the cross axis (.hero-stage sets align-items: center above).
+     Without this the figure collapses to 0×0 and the image vanishes. */
+  .hero-figure { width: 100%; }
+}
+
+/* ---- 6. Sections ----------------------------------------- */
+
+.sec { padding: clamp(52px, 8vw, 108px) 0; border-top: 1px solid var(--rule); }
+.sec-title {
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  font-weight: 800; letter-spacing: -0.04em;
+  margin: 10px 0 0;
+}
+.sec-thesis { margin-top: 16px; font-size: clamp(16px, 1.8vw, 19px); color: var(--ink-2); max-width: 56ch; }
+
+/* Primary row: title + thesis + Features beside the section's main image
+   (or compare view). In the HTML the text comes first — so it still reads
+   before the image on narrow screens, and for screen readers regardless of
+   width, since they follow DOM order rather than `order` below — and
+   `order` is what puts the image on the left once there's room for two
+   columns. Falls back to a single column when there's only one child. */
+.sec-primary {
+  display: grid; grid-template-columns: 1fr;
+  gap: clamp(16px, 2.4vw, 32px);
+  align-items: start;
+}
+
+.sec-primary > .sec-text { order: 1; }
+.sec-primary > .media-block { order: 2; }
+@media (min-width: 861px) {
+  /* Image column is explicitly the big track (1.8fr) and text is
+     explicitly the small track (.8fr) — pinned with grid-column so the
+     `order` swap below (which moves the image to visually the left)
+     can never again flip which element lands in which track. */
+  .sec-primary { grid-template-columns: minmax(0, 1.8fr) minmax(0, .8fr); }
+  .sec-primary:has(> :only-child) { grid-template-columns: 1fr; }
+
+  .sec-primary > .media-block {
+    grid-column: 1; order: 1;
+    /* Pins the image (and its pills/caption) while Features scrolls past
+       beside it. Only travels as far as the row is tall — on a section
+       where the image is taller than the text there's nothing to pin
+       against, so it just behaves like a normal static image. */
+    position: sticky;
+    top: calc(var(--nav-h) + 24px);
+  }
+  .sec-primary > .sec-text { grid-column: 2; order: 2; }
+}
+
+.sec-primary .media-block,
+.sec-primary .features { margin-top: 0; }
+.sec-primary .features { max-width: none; }
+.sec-text { min-width: 0; }
+
+.sec-media { margin-top: clamp(26px, 4vw, 44px); display: flex; flex-direction: column; gap: clamp(30px, 4vw, 52px); }
+.media-block { min-width: 0; }
+
+figure { margin: 0; }
+figcaption {
+  margin-top: 10px; font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .06em; color: var(--ink-3);
+}
+.frame {
+  background: none; border: none;
+  border-radius: 3px; overflow: hidden;
+}
+.frame img { width: 100%; cursor: zoom-in; transition: opacity .15s ease; }
+.frame img:hover { opacity: .88; }
+
+.features { margin-top: clamp(30px, 4vw, 52px); max-width: var(--measure); }
+
+.block-label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3);
+  padding-bottom: 8px; border-bottom: 1px solid var(--rule); margin-bottom: 14px;
+}
+
+/* Feature list */
+.feat > li {
+  padding: 11px 0 11px 22px; position: relative;
+  border-bottom: 1px solid var(--rule-2);
+  font-size: 15.5px;
+}
+.feat > li::before {
+  content: ""; position: absolute; left: 0; top: 21px;
+  width: 9px; height: 1.5px; background: var(--accent);
+}
+.feat ul { margin: 8px 0 0; }
+.feat ul li {
+  position: relative; padding: 4px 0 4px 18px;
+  font-size: 14px; color: var(--ink-2); line-height: 1.5;
+}
+.feat ul li::before {
+  content: ""; position: absolute; left: 2px; top: 12px;
+  width: 4px; height: 4px; border-radius: 50%;
+  border: 1px solid var(--ink-3);
+}
+
+/* ---- 7. Compare slider ----------------------------------- */
+
+.compare-stage {
+  position: relative; overflow: hidden; user-select: none;
+  background: none; border: none; border-radius: 3px;
+}
+.compare-stage > img { width: 100%; display: block; }
+.compare-top {
+  position: absolute; inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
+}
+.compare-top img { width: 100%; height: 100%; object-fit: cover; }
+
+.compare-bar {
+  position: absolute; top: 0; bottom: 0; left: var(--pos, 50%);
+  width: 2px; background: var(--accent); pointer-events: none; z-index: 3;
+  transform: translateX(-1px);
+}
+.compare-grip {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 13px; line-height: 1;
+  box-shadow: 0 2px 12px rgba(0,0,0,.28);
+}
+.compare-range {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; opacity: 0; cursor: ew-resize; z-index: 4;
+  -webkit-appearance: none; appearance: none; background: none;
+}
+.compare-range::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; }
+.compare-range::-moz-range-thumb { width: 44px; height: 100%; border: 0; opacity: 0; }
+
+.compare-tag {
+  position: absolute; bottom: 12px; z-index: 3; pointer-events: none;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--rule);
+  padding: 5px 9px; border-radius: 3px;
+}
+.compare-tag-l { left: 12px; }
+.compare-tag-r { right: 12px; }
+
+/* ---- 8. Iteration scrubber ------------------------------- */
+
+.iters-stage {
+  position: relative; background: none;
+  border: none; border-radius: 3px; overflow: hidden;
+}
+.iters-stage { aspect-ratio: var(--ar, 4 / 3); }
+.iters-stage img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: contain; padding: 3%;
+}
+.iter-frame { opacity: 0; transition: opacity .18s ease; pointer-events: none; }
+.iter-frame.is-on { opacity: 1; pointer-events: auto; cursor: zoom-in; }
+.iter-frame.is-on:hover { opacity: .92; }
+@media (prefers-reduced-motion: reduce) { .iter-frame { transition: none; } }
+
+.iter-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; color: #fff; background: var(--accent);
+  padding: 4px 9px; border-radius: 3px;
+}
+
+.iters-ctl { margin-top: 14px; display: flex; align-items: center; gap: 12px; }
+.step-btn {
+  width: 30px; height: 30px; flex: none; border: 1px solid var(--rule);
+  background: var(--panel); border-radius: 4px; cursor: pointer;
+  display: grid; place-items: center; color: var(--ink-2);
+}
+.step-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.step-btn:disabled { opacity: .35; cursor: default; }
+
+.iter-range {
+  flex: 1; -webkit-appearance: none; appearance: none;
+  background: none; height: 28px; cursor: pointer; margin: 0;
+}
+.iter-range::-webkit-slider-runnable-track { height: 2px; background: var(--rule); }
+.iter-range::-moz-range-track { height: 2px; background: var(--rule); }
+.iter-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--paper); margin-top: -6.5px;
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.iter-range::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%;
+  background: var(--accent); border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.iter-note {
+  margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule-2);
+  display: flex; gap: 12px; align-items: baseline;
+  font-size: 14.5px; color: var(--ink-2); min-height: 3.2em;
+}
+.iter-note b {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  color: var(--accent); flex: none; text-transform: uppercase;
+}
+
+/* ---- 8b. Figure grids ------------------------------------ */
+
+.figs { display: grid; gap: clamp(12px, 1.8vw, 20px); }
+.figs-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.figs-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.figs .wide { grid-column: 1 / -1; }
+@media (max-width: 720px) { .figs-2, .figs-3 { grid-template-columns: 1fr; } }
+
+.figs figure { display: flex; flex-direction: column; }
+.figs .frame { flex: 1; display: grid; place-items: center; padding: 10px; }
+.figs .frame img { width: 100%; height: auto; }
+
+/* ---- 8c. Highlight views ---------------------------------- */
+
+.hl-stage {
+  position: relative; overflow: hidden;
+  background: none; border: none; border-radius: 3px;
+  aspect-ratio: var(--ar, 4 / 3);
+}
+.hl-stage img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: contain; padding: 3%;
+  opacity: 0; transition: opacity .28s ease;
+  pointer-events: none; /* only the visible frame below should catch clicks */
+}
+.hl-stage img.is-on { opacity: 1; pointer-events: auto; cursor: zoom-in; }
+.hl-stage img.is-on:hover { opacity: .92; }
+@media (prefers-reduced-motion: reduce) { .hl-stage img { transition: none; } }
+
+.hl-pills {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 12px;
+}
+.pill {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 7px 13px; cursor: pointer;
+  background: var(--panel); color: var(--ink-2);
+  border: 1px solid var(--rule); border-radius: 100px;
+  transition: color .15s, border-color .15s, background .15s;
+}
+.pill:hover { color: var(--ink); border-color: var(--ink-3); }
+.pill[aria-selected="true"] {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+
+/* ---- 8d. Carousel (Prototyping + Alternate Views) --------- */
+
+/* Multiple items show side by side — as many as fit — and the arrows page
+   the strip sideways. Each item's frame is a FIXED height, not matched to
+   that image's aspect ratio, so mixed portrait/landscape photos sit flush
+   in a row instead of resizing the row around whichever one is showing. */
+.carousel { position: relative; }
+
+.carousel-track {
+  display: flex; gap: 14px;
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel.is-single .carousel-track { overflow-x: visible; }
+
+.carousel-item {
+  flex: 0 0 clamp(200px, 27vw, 300px); scroll-snap-align: start;
+  min-width: 0;
+}
+.carousel.is-single .carousel-item { flex-basis: min(100%, 420px); }
+
+.carousel-frame {
+  height: clamp(190px, 20vw, 260px);
+  background: none; border: none; border-radius: 3px;
+  display: grid; place-items: center; overflow: hidden;
+}
+.carousel-frame img {
+  width: 100%; height: 100%; object-fit: contain; padding: 6%;
+  cursor: zoom-in; transition: opacity .15s ease;
+}
+.carousel-frame img:hover { opacity: .88; }
+
+.carousel-cap { margin-top: 9px; font-size: 13.5px; color: var(--ink-2); line-height: 1.4; }
+.carousel-cap b {
+  display: block;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.carousel-nav {
+  position: absolute; top: calc(clamp(190px, 20vw, 260px) / 2); z-index: 2;
+  transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--rule); color: var(--ink-2);
+  display: grid; place-items: center; cursor: pointer;
+  transition: color .15s, border-color .15s, opacity .15s;
+}
+.carousel-nav:hover { color: var(--accent); border-color: var(--accent); }
+.carousel-nav:disabled { opacity: 0; pointer-events: none; }
+.carousel-prev { left: -14px; }
+.carousel-next { right: -14px; }
+@media (max-width: 640px) { .carousel-prev { left: 4px; } .carousel-next { right: 4px; } }
+
+/* ---- 9. Card grid (software tools etc.) ------------------ */
+
+.cards {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(16px, 2.4vw, 28px);
+}
+.card {
+  background: var(--panel); border: 1px solid var(--rule);
+  border-radius: 3px; overflow: hidden; text-decoration: none;
+  display: flex; flex-direction: column;
+  transition: border-color .15s, transform .15s;
+}
+a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card img { width: 100%; background: var(--panel); border-bottom: 1px solid var(--rule); }
+.card-body { padding: 15px 16px 18px; }
+.card h4 { font-size: 17px; font-weight: 600; }
+.card p { margin-top: 6px; font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+.card-go { margin-top: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* ---- 9b. Lightbox ------------------------------------------ */
+
+/* One overlay, reused for every clickable image on the page (see
+   wireLightbox in binder.js). Sits above the nav (z-index 100). */
+.lightbox {
+  position: fixed; inset: 0; z-index: 500;
+  display: grid; place-items: center; padding: clamp(20px, 5vw, 64px);
+  background: rgba(8, 8, 9, .86); backdrop-filter: blur(3px);
+  opacity: 0; transition: opacity .18s ease;
+  cursor: zoom-out;
+  /* Tied to is-open (not [hidden]) so the fading-out overlay releases
+     clicks the instant closing starts, not ~180ms later once the fade
+     finishes and JS finally sets [hidden]. */
+  pointer-events: none;
+}
+.lightbox.is-open { opacity: 1; pointer-events: auto; }
+.lightbox[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) { .lightbox { transition: none; } }
+
+.lightbox figure {
+  margin: 0; max-width: 100%; max-height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  transform: scale(.97); transition: transform .18s ease;
+}
+.lightbox.is-open figure { transform: scale(1); }
+@media (prefers-reduced-motion: reduce) { .lightbox figure { transition: none; } }
+
+.lightbox img {
+  max-width: 100%; max-height: 78vh; object-fit: contain;
+  border-radius: 4px; box-shadow: 0 24px 64px rgba(0, 0, 0, .45);
+  cursor: default;
+}
+
+.lightbox figcaption {
+  margin-top: 16px; max-width: 62ch; text-align: center;
+  font-size: 14px; line-height: 1.5; color: #e8e7e3;
+}
+.lightbox figcaption:empty { display: none; }
+.lightbox figcaption b {
+  display: block;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff;
+  margin-bottom: 4px;
+}
+
+.lightbox-close {
+  position: fixed; top: clamp(14px, 3vw, 28px); right: clamp(14px, 3vw, 28px);
+  z-index: 1;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .2);
+  color: #fff; display: grid; place-items: center; cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.lightbox-close:hover { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .4); }
+
+/* ---- 10. Footer ------------------------------------------ */
+
+.foot {
+  border-top: 1px solid var(--rule);
+  padding: 40px 0 56px;
+  display: flex; flex-wrap: wrap; gap: 16px 32px;
+  align-items: baseline; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
+}
+.foot a { color: var(--ink-3); }
+.foot a:hover { color: var(--accent); }
+
+/* ---- 11. Error banner ------------------------------------ */
+
+.boom {
+  margin: 40px auto; max-width: 640px; padding: 20px 24px;
+  border: 1px solid var(--accent); border-left-width: 3px;
+  background: var(--panel); font-family: var(--font-mono); font-size: 13px;
+}
+.boom h2 { font-family: var(--font-mono); font-size: 13px; margin-bottom: 8px; color: var(--accent); }
+
+/* ---- 12. Print ------------------------------------------- */
+
+@media print {
+  :root { --paper: #fff; --ink: #000; --ink-2: #333; --ink-3: #666; --rule: #bbb; --rule-2: #ddd; }
+  .nav, .menu-panel, .hero-skip, .iters-ctl, .compare-range, .compare-bar, .skip, .lightbox { display: none !important; }
+  body { font-size: 10.5pt; }
+  .sec { padding: 18pt 0; break-inside: avoid; break-before: page; }
+  .hero { padding: 0 0 18pt; }
+  .hero-title { font-size: 42pt; }
+  a { text-decoration: none; }
+  .iter-frame { opacity: 1 !important; position: static !important; }
+}
