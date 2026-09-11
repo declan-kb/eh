@@ -99,6 +99,21 @@
 
   /* ---- hero ---------------------------------------------- */
 
+  // Shared markup for the sponsor strip — used both under the hero and
+  // above the footer. `wrap` says whether the caller needs its own
+  // "sponsors" wrapper div (the hero already has a positioned container).
+  function renderSponsors(wrap) {
+    if (!Array.isArray(C.sponsors) || !C.sponsors.length) return '';
+    var inner =
+      '<div class="sponsors-label">Thank you to our sponsors</div>' +
+      '<div class="sponsors-row">' +
+      C.sponsors.map(function (s) {
+        return '<img class="sponsor-logo" src="' + esc(s.logo) + '" alt="' + esc(s.name) + '" loading="lazy">';
+      }).join('') +
+      '</div>';
+    return wrap ? '<div class="sponsors sponsors-hero">' + inner + '</div>' : inner;
+  }
+
   function renderHero(numbered) {
     var t = C.team, h = C.hero;
     var byId = {};
@@ -145,7 +160,7 @@
           '<div class="hero-figure">' + frames + dots + '</div>' +
           rail('right') +
         '</div>' +
-        (numbered.length ? '<a class="hero-skip" href="#' + esc(numbered[0].id) + '">Skip intro</a>' : '') +
+        renderSponsors(true) +
       '</div>' +
     '</section>';
   }
@@ -653,6 +668,9 @@
     main.innerHTML =
       renderHero(numbered) +
       numbered.map(renderSection).join('');
+
+    var sponsorsEl = document.getElementById('sponsors');
+    if (sponsorsEl) sponsorsEl.innerHTML = renderSponsors(false);
 
     document.getElementById('foot').innerHTML =
       '<span>Team ' + esc(t.number) + ' · ' + esc(t.name) + '</span>' +

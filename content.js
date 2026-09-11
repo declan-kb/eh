@@ -36,21 +36,31 @@ window.BINDER_CONTENT = {
     // as a section's Main View, just triggered by hover. Omit `hl` and the
     // callout is just a label, no highlight.
     callouts: [
-      { id: "shooter",   side: "left",  x: 36, y: 26, blurb: "Two flywheel motors for recovery time, packaged inside the turret diameter.",
+      { id: "shooter",   side: "left",  x: 45, y: 26, blurb: "Two flywheel motors for recovery time, packaged inside the turret diameter.",
         hl: { src: "assets/img/hero-hl-shooter.webp", alt: "Full robot with the shooter highlighted (placeholder)" } },
-      { id: "intake",    side: "left",  x: 25, y: 51, blurb: "Full-width slap-down intake, over the bumper.",
-        hl: { src: "assets/img/hero-hl-intake.webp", alt: "Full robot with the intake highlighted (placeholder)" } },
-      { id: "spindexer", side: "left",  x: 44, y: 63, blurb: "2.67:1 rotating hopper at ~2200 RPM.",
-        hl: { src: "assets/img/hero-hl-spindexer.webp", alt: "Full robot with the spindexer highlighted (placeholder)" } },
-      { id: "climber",   side: "right", x: 58, y: 19, blurb: "Single stage with a mechanical anti-rollback brake.",
-        hl: { src: "assets/img/hero-hl-climber.webp", alt: "Full robot with the climber highlighted (placeholder)" } },
-      { id: "turret",    side: "right", x: 49, y: 36, blurb: "54:1 on a lazy-susan bearing, 360° of motion.",
-        hl: { src: "assets/img/hero-hl-turret.webp", alt: "Full robot with the turret highlighted (placeholder)" } }
+      { id: "intake",    side: "left",  x: 25, y: 51, blurb: "Full-width linear intake, over the bumper.",
+        hl: { src: "assets/img/hero-hl-intake.webp", alt: "Full robot with the intake highlighted" } },
+      { id: "spindexer", side: "left",  x: 55, y: 63, blurb: "2.67:1 rotating hopper at ~2200 RPM.",
+        hl: { src: "assets/img/hero-hl-spindexer.webp", alt: "Full robot with the spindexer highlighted" } },
+      { id: "climber",   side: "right", x: 72, y: 19, blurb: "Single stage with a mechanical anti-rollback brake.",
+        hl: { src: "assets/img/hero-hl-climber.webp", alt: "Full robot with the climber highlighted" } },
+      { id: "turret",    side: "right", x: 60, y: 45, blurb: "54:1 on a lazy-susan bearing, 360° of motion.",
+        hl: { src: "assets/img/hero-hl-turret.webp", alt: "Full robot with the turret highlighted" } }
     ]
   },
 
   categories: [
     { id: "mechanical", label: "Mechanical" }
+  ],
+
+  sponsors: [
+    { name: "Gene Haas Foundation", logo: "assets/img/sponsors/gene-haas-foundation.png" },
+    { name: "South Australia — The Defence State", logo: "assets/img/sponsors/sa-defence-state.png" },
+    { name: "Adelaide University — Australian Institute for Machine Learning", logo: "assets/img/sponsors/aiml.png" },
+    { name: "REDARC", logo: "assets/img/sponsors/redarc.png" },
+    { name: "Energy Exemplar", logo: "assets/img/sponsors/energy-exemplar.png" },
+    { name: "C&J Accountants and Advisors", logo: "assets/img/sponsors/cj-accountants.png" },
+    { name: "WHi", logo: "assets/img/sponsors/whi.png" }
   ],
 
   /* ------------------------------------------------------------
@@ -109,8 +119,8 @@ window.BINDER_CONTENT = {
       ],
       media: [
         { type: "compare", label: "Block Model vs. Final CAD",
-          before: { src: "assets/img/block-model.webp", alt: "Block model of the robot (placeholder)", tag: "Block Model" },
-          after:  { src: "assets/img/robot-final-cad.webp", alt: "Final detailed robot CAD (placeholder)", tag: "Final CAD" },
+          before: { src: "assets/img/block-model.webp", alt: "Block model of the robot", tag: "Block Model" },
+          after:  { src: "assets/img/robot-final-cad.webp", alt: "Final detailed robot CAD", tag: "Final CAD" },
           caption: "Drag to compare the block model against the final assembly." }
       ]
     },
@@ -155,7 +165,9 @@ window.BINDER_CONTENT = {
           { tag: "Full Hopper", src: "assets/img/spindexer-full.webp",
             note: "The hopper walls, doubling as bumper backing, around the spindexer module." },
           { tag: "Spindexer Module", src: "assets/img/spindexer-hl-module.webp",
-            note: "The rotating module itself — belt-driven, 2.67:1, ~2200 RPM." }
+            note: "The rotating module itself — belt-driven, 2.67:1, ~2200 RPM." },
+          { tag: "Kicker", src: "assets/img/spindexer-hl-kicker.webp",
+            note: "Kicker motor, mounted to the frame above the hopper." }
         ]},
         { type: "carousel", label: "Prototyping", items: [
           { tag: "Prototyping", src: "assets/img/kicker-proto-integration.webp", alt: "Kicker integration with spindexer and shooter (placeholder)",
@@ -177,9 +189,9 @@ window.BINDER_CONTENT = {
       ],
       media: [
         { type: "highlight", label: "Main View", views: [
-          { tag: "Full Assembly", src: "assets/img/shooter-full.webp",
+          { tag: "Full Assembly", src: "assets/img/shooter-main.webp",
             note: "Flywheel, feed rollers and hood, packaged inside the turret envelope." },
-          { tag: "Rack & Pinion Hood", src: "assets/img/shooter-hl-hood.webp",
+          { tag: "Rack & Pinion Hood", src: "assets/img/shooter-variable-hood.webp",
             note: "The hood's rack-and-pinion drive — sets launch angle independent of flywheel speed." }
         ]},
         { type: "carousel", label: "Prototyping", items: [
@@ -208,7 +220,9 @@ window.BINDER_CONTENT = {
           { tag: "Limit Switch", src: "assets/img/turret-hl-limitswitch.webp",
             note: "Sliding hard stop. Allows >360 degrees of rotation." },
           { tag: "Gearbox", src: "assets/img/turret-hl-gearbox.webp",
-            note: "Kraken drives the gearbox with an overall 54:1 ratio" }
+            note: "Kraken drives the gearbox with an overall 54:1 ratio" },
+          { tag: "Transmission", src: "assets/img/turret-hl-transmission.webp",
+            note: "Turret driven by large 3D printed ring gear attached to a lazy susan bearing" }
         ]},
         { type: "carousel", label: "Prototyping", items: [
           { tag: "Prototyping", src: "assets/img/turret-proto-254.webp", alt: "254 energy chain inspiration (placeholder)",
@@ -223,25 +237,19 @@ window.BINDER_CONTENT = {
       id: "climber",
       category: "mechanical",
       title: "Climber",
-      thesis: "A very compact single-stage climber with the brake built into the gearbox — anti-rollback with no software control needed.",
+      thesis: "Compact single-stage L1 climber with a brake built into the gearbox.",
       features: [
-        { text: "Very compact design", children: [
-          "Packaged to allow room for the shooter and energy chain"
-        ]},
+        { text: "Compact design to allow room for the turret and energy chain"},
         { text: "Braking stage in the gearbox", children: [
           "Past designs used servo or pneumatically actuated brakes",
-          "Anti-rollback mechanism: no software control needed"
+          "New anti-rollback mechanism– no software control needed"
         ]},
-        { text: "Bottom locking jaw on the climber" }
+        { text: "Bottom locking jaw on the climber prevents slipping." }
       ],
       media: [
         { type: "highlight", label: "Main View", views: [
           { tag: "Full Assembly", src: "assets/img/climber-full.webp",
             note: "Single stage, packaged around the shooter and turret energy chain." },
-          { tag: "Gearbox", src: "assets/img/climber-hl-gearbox.webp",
-            note: "Braking stage lives here — anti-rollback with no software control needed." },
-          { tag: "Hook", src: "assets/img/climber-hl-hook.webp",
-            note: "Bottom locking jaw, engages the bar and holds without power." }
         ]}
       ]
     }

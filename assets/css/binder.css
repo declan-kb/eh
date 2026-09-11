@@ -1,6 +1,25 @@
 /* ============================================================
    Technical Binder — stylesheet
    Edit design tokens in :root. Everything else derives from them.
+
+   Shared brand system — same four hues as Pit Scout
+   (../crispy-doodle/style.css), each tuned for its own theme rather
+   than copy-pasted, since a hue that reads well on a dark surface
+   often can't pass text contrast on a light one:
+     navy   structural anchor. Pit Scout (dark): backgrounds. Here
+            (light): body ink — the same hue anchors both ends of the
+            light/dark spectrum, just inverted.
+     teal   primary interactive accent in both — "this is active /
+            selected / yours". Pit Scout also uses it for the
+            highlight-team color; here it's nav state, pills, links.
+     gold   Pit Scout's primary accent (reads fine on dark surfaces);
+            here it's decorative-only (text selection, a hover glow) —
+            gold text fails contrast against a light background.
+     orange secondary/metadata accent in both — status tags there,
+            auxiliary labels (carousel/iteration tags) here. Never
+            used for warnings — see --warn below.
+   Errors get a dedicated red in both apps, deliberately outside the
+   brand hues, so a real error never reads as just another accent.
    ============================================================ */
 
 /* ---- 1. Tokens ------------------------------------------- */
@@ -15,10 +34,11 @@
   --rule-2:   #eeeeeb;
   --accent:   #0a7770;          /* team teal — overridden at runtime by team.accent */
   --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
-  --accent-2: #25406b;          /* team navy — secondary accent, used sparingly */
+  --accent-2: #204a72;          /* team navy — secondary accent, used sparingly */
+  --accent-3: #b8420e;          /* team orange — metadata/tag labels only */
   --pop:      #f0b90b;          /* team gold — decorative fills/highlights only, not text */
   --pop-ink:  #3a2c05;          /* dark text color for use on --pop fills */
-  --warn:     #b84000;          /* team orange — error/warning states only */
+  --warn:     #b73528;          /* error/warning red — deliberately not a brand hue */
 
   --font-display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -169,7 +189,7 @@ code {
 
 /* ---- 4. Hero --------------------------------------------- */
 
-.hero { padding: clamp(40px, 7vw, 88px) 0 clamp(48px, 8vw, 104px); }
+.hero { padding: clamp(40px, 7vw, 88px) 0 clamp(24px, 4vw, 56px); }
 .hero-meta { text-align: center; }
 .hero-title {
   font-size: clamp(2.4rem, 8.5vw, 6.75rem);
@@ -239,14 +259,6 @@ code {
 .callout-blurb { font-size: 12.5px; line-height: 1.45; color: var(--ink-3); }
 .callout:hover .callout-name { color: var(--accent); }
 
-.hero-skip {
-  display: block; width: fit-content; margin: clamp(20px, 3vw, 32px) auto 0;
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink-3); text-decoration: none;
-}
-.hero-skip:hover { color: var(--accent); }
-.hero-skip::after { content: " ↓"; }
-
 @media (max-width: 900px) {
   /* Just the image — no leader lines (nothing for them to point at) and no
      label rail. Highlighting a system is a hover behavior on the rail
@@ -305,9 +317,8 @@ code {
   .sec-primary > .sec-text { grid-column: 2; order: 2; }
 }
 
-.sec-primary .media-block,
-.sec-primary .features { margin-top: 0; }
-.sec-primary .features { max-width: none; }
+.sec-primary .media-block { margin-top: 0; }
+.sec-primary .features { margin-top: clamp(20px, 3vw, 32px); max-width: none; }
 .sec-text { min-width: 0; }
 
 .sec-media { margin-top: clamp(26px, 4vw, 44px); display: flex; flex-direction: column; gap: clamp(30px, 4vw, 52px); }
@@ -419,7 +430,7 @@ figcaption {
 .iter-badge {
   position: absolute; top: 12px; left: 12px; z-index: 2;
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  letter-spacing: .1em; color: #fff; background: var(--accent-2);
+  letter-spacing: .1em; color: #fff; background: var(--accent-3);
   padding: 4px 9px; border-radius: 3px;
 }
 
@@ -456,7 +467,7 @@ figcaption {
 }
 .iter-note b {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
-  color: var(--accent-2); flex: none; text-transform: uppercase;
+  color: var(--accent-3); flex: none; text-transform: uppercase;
 }
 
 /* ---- 8b. Figure grids ------------------------------------ */
@@ -543,7 +554,7 @@ figcaption {
 .carousel-cap b {
   display: block;
   font-family: var(--font-mono); font-size: 10px; font-weight: 500;
-  letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--accent-3);
   margin-bottom: 2px;
 }
 
@@ -637,6 +648,35 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 }
 .lightbox-close:hover { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .4); }
 
+/* ---- 9b. Sponsors ------------------------------------------ */
+
+.sponsors {
+  border-top: 1px solid var(--rule);
+  padding: 48px 0 8px;
+  text-align: center;
+}
+.sponsors-label {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
+  margin-bottom: 28px;
+}
+.sponsors-row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 36px 48px;
+}
+.sponsor-logo {
+  height: 44px; max-width: 160px;
+  width: auto; object-fit: contain;
+  filter: grayscale(1) opacity(.7);
+  transition: filter .15s;
+}
+.sponsor-logo:hover { filter: none; }
+
+.sponsors-hero {
+  border-top: none; padding: 32px 0 0; margin-top: 8px;
+}
+.sponsors-hero .sponsor-logo { height: 32px; max-width: 120px; }
+
 /* ---- 10. Footer ------------------------------------------ */
 
 .foot {
@@ -663,7 +703,7 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 @media print {
   :root { --paper: #fff; --ink: #000; --ink-2: #333; --ink-3: #666; --rule: #bbb; --rule-2: #ddd; }
-  .nav, .menu-panel, .hero-skip, .iters-ctl, .compare-range, .compare-bar, .skip, .lightbox { display: none !important; }
+  .nav, .menu-panel, .iters-ctl, .compare-range, .compare-bar, .skip, .lightbox { display: none !important; }
   body { font-size: 10.5pt; }
   .sec { padding: 18pt 0; break-inside: avoid; break-before: page; }
   .hero { padding: 0 0 18pt; }
