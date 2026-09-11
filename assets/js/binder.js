@@ -122,27 +122,15 @@
     }).join('');
 
     // One frame per system that has an `hl` image, stacked on top of the
-    // full-robot frame and crossfaded by the pills below — same mechanism
-    // as a section's Main View, just keyed by id instead of index.
+    // full-robot frame and crossfaded on hover by that system's rail label
+    // (wired in wireHero) — same mechanism as a section's Main View, just
+    // triggered by hover instead of a pill click.
     var highlightable = h.callouts.filter(function (c) { return c.hl; });
     var frames = '<img class="hero-frame is-on" data-hero-view="full" src="' + esc(h.image) + '" alt="' + esc(h.alt) + '">' +
       highlightable.map(function (c) {
         return '<img class="hero-frame" data-hero-view="' + esc(c.id) + '" src="' + esc(c.hl.src) +
                '" alt="' + esc(c.hl.alt) + '" loading="lazy">';
       }).join('');
-
-    var pills = '';
-    if (highlightable.length) {
-      var btns = '<button class="pill" type="button" role="tab" aria-selected="true" tabindex="0" ' +
-                   'id="hero-t-full" data-hero-view="full">Full Robot</button>' +
-        highlightable.map(function (c) {
-          var s = byId[c.id];
-          return '<button class="pill" type="button" role="tab" aria-selected="false" tabindex="-1" ' +
-                   'id="hero-t-' + esc(c.id) + '" data-hero-view="' + esc(c.id) + '">' +
-                   esc(s ? s.title : c.id) + '</button>';
-        }).join('');
-      pills = '<div class="hero-pills" role="tablist" aria-label="Highlight a system">' + btns + '</div>';
-    }
 
     return '<section class="hero" id="top">' +
       '<div class="wrap">' +
@@ -157,7 +145,6 @@
           '<div class="hero-figure">' + frames + dots + '</div>' +
           rail('right') +
         '</div>' +
-        pills +
         (numbered.length ? '<a class="hero-skip" href="#' + esc(numbered[0].id) + '">Skip intro</a>' : '') +
       '</div>' +
     '</section>';
@@ -196,43 +183,25 @@
     svg.innerHTML = paths;
   }
 
-  // Pills swap which hero frame is solid — same crossfade as a section's
-  // Main View, just addressed by id (a section anchor) instead of index.
-  function wireHeroPills() {
-    var pills = [].slice.call(document.querySelectorAll('.hero-pills .pill'));
-    if (!pills.length) return;
-    var figure = document.querySelector('.hero-figure');
-    var frames = figure.querySelectorAll('.hero-frame');
-
-    function show(id, focus) {
-      frames.forEach(function (f) { f.classList.toggle('is-on', f.getAttribute('data-hero-view') === id); });
-      pills.forEach(function (p) {
-        var sel = p.getAttribute('data-hero-view') === id;
-        p.setAttribute('aria-selected', String(sel));
-        p.tabIndex = sel ? 0 : -1;
-        if (sel && focus) p.focus();
-      });
-    }
-
-    pills.forEach(function (p, i) {
-      p.addEventListener('click', function () { show(p.getAttribute('data-hero-view')); });
-      p.addEventListener('keydown', function (e) {
-        var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-        if (d) { e.preventDefault(); show(pills[(i + d + pills.length) % pills.length].getAttribute('data-hero-view'), true); }
-        else if (e.key === 'Home') { e.preventDefault(); show(pills[0].getAttribute('data-hero-view'), true); }
-        else if (e.key === 'End') { e.preventDefault(); show(pills[pills.length - 1].getAttribute('data-hero-view'), true); }
-      });
-    });
-  }
-
   function wireHero() {
+    // A callout's rail label doubles as the "highlight a system" control:
+    // hovering (or focusing) it lights its dot/line and, when that system
+    // has an `hl` frame, crossfades the hero image to it — same crossfade
+    // a section's Main View pills do, just triggered by hover instead of a
+    // click, and keyed by id instead of index.
+    var heroFrames = document.querySelectorAll('.hero-frame');
     document.querySelectorAll('.callout').forEach(function (a) {
       var id = a.getAttribute('data-co');
+      var hasFrame = !!document.querySelector('.hero-frame[data-hero-view="' + id + '"]');
       function set(on) {
         var dot = document.querySelector('[data-dot="' + id + '"]');
         var line = document.querySelector('[data-line="' + id + '"]');
         if (dot) dot.classList.toggle('is-lit', on);
         if (line) line.style.opacity = on ? '1' : '';
+        if (hasFrame) {
+          var view = on ? id : 'full';
+          heroFrames.forEach(function (f) { f.classList.toggle('is-on', f.getAttribute('data-hero-view') === view); });
+        }
       }
       a.addEventListener('mouseenter', function () { set(true); });
       a.addEventListener('mouseleave', function () { set(false); });
@@ -258,7 +227,6 @@
     var full = document.querySelector('.hero-frame[data-hero-view="full"]');
     if (full && !full.complete) full.addEventListener('load', layoutHero);
     layoutHero();
-    wireHeroPills();
 
     var pending;
     window.addEventListener('resize', function () {
@@ -420,7 +388,7 @@
     // moves the image to the left of the text on wide screens.
     var text = '<div class="sec-text">' +
         '<p class="eyebrow">' + esc(cat ? cat.label : '') + ' · ' + pad(s.n) + '</p>' +
-        '<h2 class="sec-title">' + esc(s.title) + '.</h2>' +
+        '<h2 class="sec-title">' + esc(s.title) + '</h2>' +
         '<p class="sec-thesis">' + fmt(s.thesis) + '</p>' +
         feats +
       '</div>';

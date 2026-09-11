@@ -6,15 +6,19 @@
 /* ---- 1. Tokens ------------------------------------------- */
 
 :root {
-  --paper:    #f6f5f2;
-  --panel:    #fffefc;
-  --ink:      #15161a;
-  --ink-2:    #4c4f57;
-  --ink-3:    #696c74;
-  --rule:     #e2e0d9;
-  --rule-2:   #efedE7;
-  --accent:   #12706f;          /* overridden at runtime by team.accent */
+  --paper:    #fafaf8;          /* near-white, just a hair off pure white */
+  --panel:    #ffffff;
+  --ink:      #20222f;          /* navy-black, tinted from the logo's navy */
+  --ink-2:    #4a4e63;
+  --ink-3:    #5f6278;
+  --rule:     #e6e6e2;
+  --rule-2:   #eeeeeb;
+  --accent:   #0a7770;          /* team teal — overridden at runtime by team.accent */
   --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-2: #25406b;          /* team navy — secondary accent, used sparingly */
+  --pop:      #f0b90b;          /* team gold — decorative fills/highlights only, not text */
+  --pop-ink:  #3a2c05;          /* dark text color for use on --pop fills */
+  --warn:     #b84000;          /* team orange — error/warning states only */
 
   --font-display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
   --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -52,7 +56,7 @@ h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 600; 
 p { margin: 0; }
 ul { margin: 0; padding: 0; list-style: none; }
 
-::selection { background: var(--accent); color: #fff; }
+::selection { background: var(--pop); color: var(--pop-ink); }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
 
@@ -107,7 +111,7 @@ code {
   text-transform: uppercase; color: var(--ink-3);
   padding-left: 10px; border-left: 1px solid var(--rule);
 }
-.wordmark-tag b { color: var(--accent); font-weight: 500; }
+.wordmark-tag b { color: var(--accent-2); font-weight: 500; }
 
 .nav-links { display: flex; gap: 4px; margin-left: auto; }
 .nav-links a {
@@ -215,7 +219,11 @@ code {
   border: 1.5px solid var(--accent); z-index: 3; pointer-events: none;
   transition: transform .2s, box-shadow .2s;
 }
-.hero-dot.is-lit { transform: scale(1.45); box-shadow: 0 0 0 6px var(--accent-soft); }
+.hero-dot.is-lit {
+  transform: scale(1.45);
+  border-color: var(--pop);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--pop) 22%, transparent);
+}
 
 .hero-rail { display: flex; flex-direction: column; gap: clamp(14px, 3vw, 30px); z-index: 2; }
 .hero-rail-l { grid-column: 1; text-align: right; align-items: flex-end; }
@@ -231,11 +239,6 @@ code {
 .callout-blurb { font-size: 12.5px; line-height: 1.45; color: var(--ink-3); }
 .callout:hover .callout-name { color: var(--accent); }
 
-.hero-pills {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
-  margin-top: clamp(20px, 3vw, 32px);
-}
-
 .hero-skip {
   display: block; width: fit-content; margin: clamp(20px, 3vw, 32px) auto 0;
   font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
@@ -246,8 +249,8 @@ code {
 
 @media (max-width: 900px) {
   /* Just the image — no leader lines (nothing for them to point at) and no
-     label rail. The callouts still exist for the "Highlight a system"
-     pills below the image; only their name/blurb list is hidden here. */
+     label rail. Highlighting a system is a hover behavior on the rail
+     labels, so it isn't reachable here; visitors just get the full robot. */
   .hero-stage { display: flex; flex-direction: column; }
   .hero-lines, .hero-dot, .hero-rail { display: none; }
   /* Every .hero-frame is position:absolute (for the crossfade), so
@@ -366,13 +369,13 @@ figcaption {
 
 .compare-bar {
   position: absolute; top: 0; bottom: 0; left: var(--pos, 50%);
-  width: 2px; background: var(--accent); pointer-events: none; z-index: 3;
+  width: 2px; background: var(--accent-2); pointer-events: none; z-index: 3;
   transform: translateX(-1px);
 }
 .compare-grip {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 34px; height: 34px; border-radius: 50%;
-  background: var(--accent); color: #fff;
+  background: var(--accent-2); color: #fff;
   display: grid; place-items: center;
   font-family: var(--font-mono); font-size: 13px; line-height: 1;
   box-shadow: 0 2px 12px rgba(0,0,0,.28);
@@ -416,7 +419,7 @@ figcaption {
 .iter-badge {
   position: absolute; top: 12px; left: 12px; z-index: 2;
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  letter-spacing: .1em; color: #fff; background: var(--accent);
+  letter-spacing: .1em; color: #fff; background: var(--accent-2);
   padding: 4px 9px; border-radius: 3px;
 }
 
@@ -426,7 +429,7 @@ figcaption {
   background: var(--panel); border-radius: 4px; cursor: pointer;
   display: grid; place-items: center; color: var(--ink-2);
 }
-.step-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.step-btn:hover:not(:disabled) { border-color: var(--accent-2); color: var(--accent-2); }
 .step-btn:disabled { opacity: .35; cursor: default; }
 
 .iter-range {
@@ -437,13 +440,13 @@ figcaption {
 .iter-range::-moz-range-track { height: 2px; background: var(--rule); }
 .iter-range::-webkit-slider-thumb {
   -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%;
-  background: var(--accent); border: 2px solid var(--paper); margin-top: -6.5px;
-  box-shadow: 0 0 0 1px var(--accent);
+  background: var(--accent-2); border: 2px solid var(--paper); margin-top: -6.5px;
+  box-shadow: 0 0 0 1px var(--accent-2);
 }
 .iter-range::-moz-range-thumb {
   width: 15px; height: 15px; border-radius: 50%;
-  background: var(--accent); border: 2px solid var(--paper);
-  box-shadow: 0 0 0 1px var(--accent);
+  background: var(--accent-2); border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--accent-2);
 }
 
 .iter-note {
@@ -453,7 +456,7 @@ figcaption {
 }
 .iter-note b {
   font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
-  color: var(--accent); flex: none; text-transform: uppercase;
+  color: var(--accent-2); flex: none; text-transform: uppercase;
 }
 
 /* ---- 8b. Figure grids ------------------------------------ */
@@ -554,7 +557,7 @@ figcaption {
   display: grid; place-items: center; cursor: pointer;
   transition: color .15s, border-color .15s, opacity .15s;
 }
-.carousel-nav:hover { color: var(--accent); border-color: var(--accent); }
+.carousel-nav:hover { color: var(--accent-2); border-color: var(--accent-2); }
 .carousel-nav:disabled { opacity: 0; pointer-events: none; }
 .carousel-prev { left: -14px; }
 .carousel-next { right: -14px; }
@@ -651,10 +654,10 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 .boom {
   margin: 40px auto; max-width: 640px; padding: 20px 24px;
-  border: 1px solid var(--accent); border-left-width: 3px;
+  border: 1px solid var(--warn); border-left-width: 3px;
   background: var(--panel); font-family: var(--font-mono); font-size: 13px;
 }
-.boom h2 { font-family: var(--font-mono); font-size: 13px; margin-bottom: 8px; color: var(--accent); }
+.boom h2 { font-family: var(--font-mono); font-size: 13px; margin-bottom: 8px; color: var(--warn); }
 
 /* ---- 12. Print ------------------------------------------- */
 

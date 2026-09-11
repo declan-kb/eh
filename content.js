@@ -23,7 +23,7 @@ window.BINDER_CONTENT = {
     season: "2026",
     robot: "LEMON LAUNCHER",
     tagline: "Full-width slap-down intake feeding a spindexer hopper, into a 360° turreted shooter. And an L1 climb.",
-    accent: "#12706f",
+    accent: "#0a7770",
     logo: "assets/img/logo.svg"
   },
 
@@ -31,10 +31,10 @@ window.BINDER_CONTENT = {
     image: "assets/img/hero-robot.webp",
     alt: "Full robot assembly, isometric view (placeholder)",
     // Each callout can carry an optional `hl` (same camera as `image` above,
-    // that one system left solid). When present, a "Highlight a system" pill
-    // row appears under the hero and clicking a pill crossfades the hero
-    // image to it — same mechanism as a section's Main View. Omit `hl` and
-    // the callout is just a label, no pill.
+    // that one system left solid). When present, hovering (or focusing) the
+    // callout's rail label crossfades the hero image to it — same mechanism
+    // as a section's Main View, just triggered by hover. Omit `hl` and the
+    // callout is just a label, no highlight.
     callouts: [
       { id: "shooter",   side: "left",  x: 36, y: 26, blurb: "Two flywheel motors for recovery time, packaged inside the turret diameter.",
         hl: { src: "assets/img/hero-hl-shooter.webp", alt: "Full robot with the shooter highlighted (placeholder)" } },
@@ -45,9 +45,7 @@ window.BINDER_CONTENT = {
       { id: "climber",   side: "right", x: 58, y: 19, blurb: "Single stage with a mechanical anti-rollback brake.",
         hl: { src: "assets/img/hero-hl-climber.webp", alt: "Full robot with the climber highlighted (placeholder)" } },
       { id: "turret",    side: "right", x: 49, y: 36, blurb: "54:1 on a lazy-susan bearing, 360° of motion.",
-        hl: { src: "assets/img/hero-hl-turret.webp", alt: "Full robot with the turret highlighted (placeholder)" } },
-      { id: "kicker",    side: "right", x: 59, y: 52, blurb: "1.27:1 reversal gearbox into the shooter.",
-        hl: { src: "assets/img/hero-hl-kicker.webp", alt: "Full robot with the kicker highlighted (placeholder)" } }
+        hl: { src: "assets/img/hero-hl-turret.webp", alt: "Full robot with the turret highlighted (placeholder)" } }
     ]
   },
 
