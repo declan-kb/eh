@@ -404,6 +404,9 @@ figcaption {
   position: absolute; inset: 0; width: 100%; height: 100%;
   margin: 0; opacity: 0; cursor: ew-resize; z-index: 4;
   -webkit-appearance: none; appearance: none; background: none;
+  /* Own the gesture once a touch starts here — otherwise the browser can
+     still interpret it as a page scroll partway through a drag. */
+  touch-action: none;
 }
 .compare-range::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; }
 .compare-range::-moz-range-thumb { width: 44px; height: 100%; border: 0; opacity: 0; }
@@ -661,7 +664,7 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 .sponsors {
   border-top: 1px solid var(--rule);
-  padding: 48px 0 8px;
+  padding: 48px 0 32px;
   text-align: center;
 }
 .sponsors-label {

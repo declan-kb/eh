@@ -460,10 +460,12 @@
         dragging = true;
         range.setPointerCapture(e.pointerId);
         move(e.clientX);
+        e.preventDefault(); // belt-and-suspenders alongside touch-action: none below
       });
       range.addEventListener('pointermove', function (e) {
         if (!dragging) return;
         move(e.clientX);
+        e.preventDefault();
       });
       function stop(e) {
         if (!dragging) return;
@@ -663,6 +665,7 @@
       var target = e.target.closest('img');
       if (!target || !root.contains(target)) return;
       if (target.closest('.compare-stage')) return; // owned by the drag slider
+      if (target.classList.contains('sponsor-logo')) return; // sponsors never enlarge
       open(target, { opener: target.closest('button, a') || null });
     });
 
