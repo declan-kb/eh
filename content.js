@@ -72,7 +72,7 @@ window.BINDER_CONTENT = {
      // a sub-system; give it 1 view and it's just a plain image.
      // No `alt` here on purpose — the note is shown as visible text right
      // below the image, so a screen reader would just hear it twice.
-     { type: "highlight", label: "Main View", views: [
+     { type: "highlight", views: [
          { tag: "Full Assembly", src: "…", note: "…" },
          { tag: "Gearbox",       src: "…", note: "…" }
      ]}
@@ -134,7 +134,7 @@ window.BINDER_CONTENT = {
         ]}
       ],
       media: [
-        { type: "compare", label: "Block Model vs. Final CAD",
+        { type: "compare",
           before: { src: "assets/img/block-model.webp", alt: "Block model of the robot", tag: "Block Model" },
           after:  { src: "assets/img/robot-final-cad.webp", alt: "Final detailed robot CAD", tag: "Final CAD" },
           caption: "Drag to compare the block model against the final assembly." }
@@ -151,7 +151,7 @@ window.BINDER_CONTENT = {
         { text: "Modular design: intake is replaceable seperate from gearboxes" },
       ],
       media: [
-        { type: "highlight", label: "Main View", views: [
+        { type: "highlight", views: [
           { tag: "Full Assembly", src: "assets/img/intake-full.webp",
             note: "Full-width roller across the front, pivoting on the drivebase rail." },
           { tag: "Gearbox", src: "assets/img/intake-hl-gearbox.webp",
@@ -176,7 +176,7 @@ window.BINDER_CONTENT = {
         { text: "15t to 40t, running a **2.67 : 1** reduction" }
       ],
       media: [
-        { type: "highlight", label: "Main View", views: [
+        { type: "highlight", views: [
           { tag: "Full Hopper", src: "assets/img/spindexer-full.webp",
             note: "The hopper walls, doubling as bumper backing, around the spindexer module." },
           { tag: "Spindexer Module", src: "assets/img/spindexer-hl-module.webp",
@@ -203,7 +203,7 @@ window.BINDER_CONTENT = {
         { text: "Arducam mounted directly to the shooter for accuracy." }
       ],
       media: [
-        { type: "highlight", label: "Main View", views: [
+        { type: "highlight", views: [
           { tag: "Full Assembly", src: "assets/img/shooter-main.webp",
             note: "Flywheel, feed rollers and hood, packaged inside the turret envelope." },
           { tag: "Rack & Pinion Hood", src: "assets/img/shooter-variable-hood.webp",
@@ -229,7 +229,7 @@ window.BINDER_CONTENT = {
         { text: "COTS 'lazy susan' bearing with a 3DP rack attached" },
       ],
       media: [
-        { type: "highlight", label: "Main View", views: [
+        { type: "highlight", views: [
           { tag: "Full Assembly", src: "assets/img/turret-full.webp",
             note: "The complete ring: lazy-susan bearing, 3D-printed rack, limit switch module and drive stage." },
           { tag: "Limit Switch", src: "assets/img/turret-hl-limitswitch.webp",
@@ -256,7 +256,7 @@ window.BINDER_CONTENT = {
         { text: "Bottom locking jaw on the climber prevents slipping." }
       ],
       media: [
-        { type: "highlight", label: "Main View", views: [
+        { type: "highlight", views: [
           { tag: "Full Assembly", src: "assets/img/climber-full.webp",
             note: "Single stage, packaged around the shooter and turret energy chain." },
         ]},

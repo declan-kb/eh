@@ -439,6 +439,41 @@
       function set() { stage.style.setProperty('--pos', range.value + '%'); }
       range.addEventListener('input', set);
       set();
+
+      // Native <input type="range"> on touch browsers only drags once the
+      // touch starts on the (invisible, full-height) thumb itself — a touch
+      // that starts anywhere else on the track just jumps once and doesn't
+      // follow the finger. Drive the value from pointer position instead so
+      // a drag starting anywhere on the stage tracks continuously.
+      var dragging = false;
+      function valueAt(clientX) {
+        var rect = stage.getBoundingClientRect();
+        var pct = ((clientX - rect.left) / rect.width) * 100;
+        return Math.max(0, Math.min(100, pct));
+      }
+      function move(clientX) {
+        range.value = valueAt(clientX);
+        set();
+        range.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+      range.addEventListener('pointerdown', function (e) {
+        dragging = true;
+        range.setPointerCapture(e.pointerId);
+        move(e.clientX);
+      });
+      range.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        move(e.clientX);
+      });
+      function stop(e) {
+        if (!dragging) return;
+        dragging = false;
+        if (range.hasPointerCapture && range.hasPointerCapture(e.pointerId)) {
+          range.releasePointerCapture(e.pointerId);
+        }
+      }
+      range.addEventListener('pointerup', stop);
+      range.addEventListener('pointercancel', stop);
     });
   }
 
