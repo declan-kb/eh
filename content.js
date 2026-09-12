@@ -56,7 +56,7 @@ window.BINDER_CONTENT = {
   sponsors: [
     { name: "Gene Haas Foundation", logo: "assets/img/sponsors/gene-haas-foundation.png" },
     { name: "South Australia — The Defence State", logo: "assets/img/sponsors/sa-defence-state.png" },
-    { name: "Adelaide University — Australian Institute for Machine Learning", logo: "assets/img/sponsors/aiml.png" },
+    { name: "Adelaide University — Australian Institute for Machine Learning", logo: "assets/img/sponsors/AIML.png" },
     { name: "REDARC", logo: "assets/img/sponsors/redarc.png" },
     { name: "Energy Exemplar", logo: "assets/img/sponsors/energy-exemplar.png" },
     { name: "C&J Accountants and Advisors", logo: "assets/img/sponsors/cj-accountants.png" },
