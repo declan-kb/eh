@@ -50,6 +50,7 @@ window.BINDER_CONTENT = {
   },
 
   categories: [
+    { id: "reveal", label: "Reveal" },
     { id: "mechanical", label: "Mechanical" }
   ],
 
@@ -100,9 +101,24 @@ window.BINDER_CONTENT = {
      { type: "figures", label: "…", cols: 2, items: [
          { src: "…", alt: "…", caption: "…" }
      ]}
+
+     // Embedded YouTube video, responsive 16:9. `youtube` is just the
+     // video ID (the part after "v=" or after "youtu.be/").
+     { type: "video", label: "…", youtube: "dQw4w9WgXcQ", title: "…", caption: "…" }
      ------------------------------------------------------------ */
 
   sections: [
+
+    {
+      id: "reveal",
+      category: "reveal",
+      title: "Reveal Video",
+      thesis: "Our season reveal.",
+      features: [],
+      media: [
+        { type: "video", youtube: "NSD_GfRYMus", title: "Team 6996 Koalafied — 2026 Reveal" }
+      ]
+    },
 
     {
       id: "block-model",

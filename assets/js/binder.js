@@ -365,6 +365,19 @@
       '</div>';
     }
 
+    if (b.type === 'video') {
+      return '<div class="media-block">' + blockLabel(b) +
+        '<figure class="video-embed">' +
+          '<div class="video-frame">' +
+            '<iframe src="https://www.youtube-nocookie.com/embed/' + esc(b.youtube) +
+              '" title="' + esc(b.title || 'Embedded video') +
+              '" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>' +
+          '</div>' +
+          (b.caption ? '<figcaption>' + esc(b.caption) + '</figcaption>' : '') +
+        '</figure>' +
+      '</div>';
+    }
+
     return '';
   }
 
