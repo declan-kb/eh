@@ -143,11 +143,10 @@ window.BINDER_CONTENT = {
           { tag: "Intake", src: "assets/img/intake-hl-roller.webp",
             note: "The roller itself — the part that actually touches the ball." }
         ]},
-        { type: "carousel", label: "Prototyping & Alternate Views", items: [
-          { tag: "Alternate View", src: "assets/img/intake-alt-gearbox.webp", alt: "Intake gearbox mechanism diagram (placeholder)",
-            caption: "How the gearbox works" },
-          { tag: "Prototyping", src: "assets/img/intake-proto-1.webp", alt: "Intake prototype 1 (placeholder)", caption: "Early linkage prototype" },
-          { tag: "Prototyping", src: "assets/img/intake-proto-2.webp", alt: "Intake prototype 2 (placeholder)", caption: "On-field roller testing" }
+        { type: "carousel", label: "Prototyping", items: [
+          { tag: "Prototyping", src: "assets/img/alt-linkage-design.png", caption: "Alternate linkage intake design we considered", caption: "Alt Linkage CAD"},
+          { tag: "Prototyping", src: "assets/img/intake-2025.jpg", alt: "2025 Intake", caption: "Intake we built in 2025 served as inspiration" },
+          { tag: "Prototyping", src: "assets/img/intake-prototype.png", alt: "Prototype intake on 2025 robot", caption: "Prototype intake attached to 2025 robot" }
         ]}
       ]
     },
@@ -170,8 +169,8 @@ window.BINDER_CONTENT = {
             note: "Kicker motor, mounted to the frame above the hopper." }
         ]},
         { type: "carousel", label: "Prototyping", items: [
-          { tag: "Prototyping", src: "assets/img/kicker-proto-integration.webp", alt: "Kicker integration with spindexer and shooter (placeholder)",
-            caption: "Integration test — spindexer, kicker and shooter feed" }
+          { tag: "Prototyping", src: "assets/img/spindexer-prototype.png", alt: "Early version of the spindexer with the kicker attached",
+            caption: "Early version of the spindexer with kicker attached" },
         ]}
       ]
     },
@@ -195,8 +194,8 @@ window.BINDER_CONTENT = {
             note: "The hood's rack-and-pinion drive — sets launch angle independent of flywheel speed." }
         ]},
         { type: "carousel", label: "Prototyping", items: [
-          { tag: "Prototyping", src: "assets/img/shooter-proto-1.webp", alt: "Shooter prototype 1 (placeholder)", caption: "Adjustable test rig" },
-          { tag: "Prototyping", src: "assets/img/shooter-proto-2.webp", alt: "Shooter prototype 2 (placeholder)", caption: "Cardboard hood mock-up" }
+          { tag: "Prototyping", src: "assets/img/shooter-prototype.png", alt: "Early shooter prototype", caption: "Shooter integration test with kicker and spindexer" },
+          { tag: "Prototyping", src: "assets/img/shooter-2023.png", alt: "Shooter from 2022 robot", caption: "Shooter from 2022 robot was inspiration" }
         ]}
       ]
     },
@@ -223,12 +222,6 @@ window.BINDER_CONTENT = {
             note: "Kraken drives the gearbox with an overall 54:1 ratio" },
           { tag: "Transmission", src: "assets/img/turret-hl-transmission.webp",
             note: "Turret driven by large 3D printed ring gear attached to a lazy susan bearing" }
-        ]},
-        { type: "carousel", label: "Prototyping", items: [
-          { tag: "Prototyping", src: "assets/img/turret-proto-254.webp", alt: "254 energy chain inspiration (placeholder)",
-            caption: "Inspiration — 2022 FRC team 254 energy chain" },
-          { tag: "Prototyping", src: "assets/img/turret-proto-oldrobot.webp", alt: "Turret on prior year's robot (placeholder)",
-            caption: "Turret concept on last year's robot" }
         ]}
       ]
     },
@@ -250,6 +243,9 @@ window.BINDER_CONTENT = {
         { type: "highlight", label: "Main View", views: [
           { tag: "Full Assembly", src: "assets/img/climber-full.webp",
             note: "Single stage, packaged around the shooter and turret energy chain." },
+        ]},
+        { type: "carousel", label: "Prototyping", items: [
+          { tag: "Prototyping", src: "assets/img/climber-2020.png", alt: "2020 climbing mechanism", caption: "2020 single-stage climber was inspiration" }
         ]}
       ]
     }

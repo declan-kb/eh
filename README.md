@@ -119,8 +119,7 @@ themselves.
 
 ### Team details
 
-`team.robot` is the huge word on the hero.
-`team.accent` recolours the whole site
+`team.robot` is the huge word on the hero. `team.accent` recolours the whole site.
 
 ---
 
@@ -139,15 +138,15 @@ incorrectly draw in front — which is why this isn't done that way.)
 
 1. For each mechanism, create a named view in OnShape so every screenshot is consistent. Roughly square views work best.
 2. Take a screenshot with minimal padding around the mechanism.
-2. Select what you want to highlight and use the 'isolate feature'
-3. Take another screenshot in the exact same position (works well on mac with Cmd-shift-5 and using the window feature. The size and position is preserved between subsequent screenshots.) Every screenshot must be the same size– don't approximate!
-4. Repeat with other parts you want to isolate. 
-5. Remove the white backgrounds of the images - I don't have a good process for this yet
+3. Select what you want to highlight and use the 'isolate feature'.
+4. Take another screenshot in the exact same position (works well on mac with Cmd-shift-5 and using the window feature — the size and position is preserved between subsequent screenshots). Every screenshot must be the same size — don't approximate!
+5. Repeat with other parts you want to isolate.
+6. Remove the white backgrounds of the images — no good process for this yet.
 
 
 ## Images
 
-Images go in the 'assets/img' folder. 
+Images go in the `assets/img` folder.
 
 - Any format works (`.webp`, `.png`, `.jpg`) — just point `src` at the file if
   you do rename something.
@@ -180,6 +179,6 @@ assets/css/binder.css site styles and design tokens
 assets/css/print.css  paper layout
 assets/js/binder.js   renders content.js into the page
 assets/js/print.js    renders content.js into A4 sheets
-assets/img/           images — currently all placeholders (see above)
+assets/img/           images
 assets/img/logo.svg   team logo (vector) — nav mark, favicon and print cover
 ```
