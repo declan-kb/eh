@@ -404,11 +404,21 @@ figcaption {
   position: absolute; inset: 0; width: 100%; height: 100%;
   margin: 0; opacity: 0; cursor: ew-resize; z-index: 4;
   -webkit-appearance: none; appearance: none; background: none;
-  /* Own the gesture once a touch starts here — otherwise the browser can
-     still interpret it as a page scroll partway through a drag. */
-  touch-action: none;
 }
 .compare-range::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100%; }
+
+/* On a touch device the hit target is a band that follows the divider
+   (touch-action: none only within that band) rather than the full image —
+   so a finger landing anywhere else on the image scrolls the page as
+   normal, and only a touch that starts near the handle grabs it. A mouse
+   or trackpad has no scroll-vs-drag conflict, so it keeps the full-width
+   "click anywhere to jump" hit target above. */
+@media (pointer: coarse) {
+  .compare-range {
+    left: calc(var(--pos, 50%) - 32px); width: 64px;
+    touch-action: none;
+  }
+}
 .compare-range::-moz-range-thumb { width: 44px; height: 100%; border: 0; opacity: 0; }
 
 .compare-tag {

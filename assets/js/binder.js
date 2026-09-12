@@ -444,7 +444,9 @@
       // touch starts on the (invisible, full-height) thumb itself — a touch
       // that starts anywhere else on the track just jumps once and doesn't
       // follow the finger. Drive the value from pointer position instead so
-      // a drag starting anywhere on the stage tracks continuously.
+      // a drag tracks continuously once it starts (the CSS narrows where a
+      // touch can start it, near the divider, so the rest of the image is
+      // still free to scroll).
       var dragging = false;
       function valueAt(clientX) {
         var rect = stage.getBoundingClientRect();
