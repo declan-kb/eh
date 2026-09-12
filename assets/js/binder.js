@@ -42,6 +42,11 @@
 
   /* ---- nav ----------------------------------------------- */
 
+  function externalLinkIcon() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>';
+  }
+
   function renderNav(numbered) {
     var t = C.team;
     var links = C.categories.map(function (cat) {
@@ -49,10 +54,8 @@
       if (!first) return '';
       return '<a href="#' + esc(first.id) + '" data-cat="' + esc(cat.id) + '">' + esc(cat.label) + '</a>';
     }).join('') +
-      (t.cad ? '<a class="nav-cad" href="' + esc(t.cad) + '" target="_blank" rel="noopener" aria-label="CAD (opens in a new tab)" title="CAD (opens in a new tab)">' +
-        'Onshape' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></a>' : '');
+      (t.cad ? '<a class="nav-external" href="' + esc(t.cad) + '" target="_blank" rel="noopener" aria-label="CAD (opens in a new tab)" title="CAD (opens in a new tab)">' +
+        'Onshape' + externalLinkIcon() + '</a>' : '');
 
     var nav = el(
       '<header class="nav">' +
@@ -65,13 +68,16 @@
           '</a>' +
           '<nav class="nav-links">' + links + '</nav>' +
           '<div class="nav-tools">' +
+            (t.website ? '<a class="icon-btn" href="' + esc(t.website) + '" target="_blank" rel="noopener" ' +
+              'aria-label="Main team site (opens in a new tab)" title="Main team site (opens in a new tab)">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></a>' : '') +
             '<a class="icon-btn" href="print.html" aria-label="Print version" title="Print version">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
               '<path d="M6 9V2.5h12V9M6 17.5H4a1.5 1.5 0 0 1-1.5-1.5v-5A1.5 1.5 0 0 1 4 9.5h16a1.5 1.5 0 0 1 1.5 1.5v5a1.5 1.5 0 0 1-1.5 1.5h-2"/>' +
               '<path d="M6 14h12v7.5H6z"/></svg></a>' +
-            '<button class="icon-btn nav-menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Contents — jump to a section">' +
+            '<button class="icon-btn nav-menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Contents — jump to a section" title="Contents">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>' +
-              '<span class="nav-menu-label">Contents</span>' +
             '</button>' +
           '</div>' +
         '</div>' +
@@ -103,19 +109,27 @@
 
   /* ---- hero ---------------------------------------------- */
 
-  // Shared markup for the sponsor strip — used both under the hero and
-  // above the footer. `wrap` says whether the caller needs its own
-  // "sponsors" wrapper div (the hero already has a positioned container).
-  function renderSponsors(wrap) {
-    if (!Array.isArray(C.sponsors) || !C.sponsors.length) return '';
-    var inner =
-      '<div class="sponsors-label">Thank you to our sponsors</div>' +
-      '<div class="sponsors-row">' +
+  // Two sponsor moments, matching the main site's quiet banner: one right
+  // under the hero (no label), one near the footer (labelled). Both use the
+  // same row markup/logo size — see the comment on .sponsors in binder.css.
+  function sponsorRow() {
+    return '<div class="sponsor-banner-row">' +
       C.sponsors.map(function (s) {
         return '<img class="sponsor-logo" src="' + esc(s.logo) + '" alt="' + esc(s.name) + '" loading="lazy">';
       }).join('') +
       '</div>';
-    return wrap ? '<div class="sponsors sponsors-hero">' + inner + '</div>' : inner;
+  }
+
+  // Quiet strip right under the hero — just logos, no label.
+  function renderSponsorBanner() {
+    if (!Array.isArray(C.sponsors) || !C.sponsors.length) return '';
+    return '<div class="sponsors sponsors-hero">' + sponsorRow() + '</div>';
+  }
+
+  // Fuller "thank you" section, labelled, near the footer.
+  function renderSponsors() {
+    if (!Array.isArray(C.sponsors) || !C.sponsors.length) return '';
+    return '<div class="sponsors-label">Thank you to our sponsors</div>' + sponsorRow();
   }
 
   function renderHero(numbered) {
@@ -164,7 +178,7 @@
           '<div class="hero-figure">' + frames + dots + '</div>' +
           rail('right') +
         '</div>' +
-        renderSponsors(true) +
+        renderSponsorBanner() +
       '</div>' +
     '</section>';
   }
@@ -727,7 +741,7 @@
       numbered.map(renderSection).join('');
 
     var sponsorsEl = document.getElementById('sponsors');
-    if (sponsorsEl) sponsorsEl.innerHTML = renderSponsors(false);
+    if (sponsorsEl) sponsorsEl.innerHTML = renderSponsors();
 
     document.getElementById('foot').innerHTML =
       '<span>Team ' + esc(t.number) + ' · ' + esc(t.name) + '</span>' +

@@ -159,24 +159,14 @@ code {
 /* Contents button: opens the full section list (menu-panel). Shown at every
    width — on wide screens it sits alongside the category links, on narrow
    ones it's the only way to jump to a section since nav-links hides. */
-.nav-menu-btn {
-  width: auto; padding: 0 12px 0 9px; gap: 7px;
-  display: flex; align-items: center;
-}
-.nav-menu-btn svg { flex: none; }
-.nav-menu-label {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
-  text-transform: uppercase; color: inherit;
-}
-@media (max-width: 500px) { .nav-menu-label { display: none; } .nav-menu-btn { width: 32px; padding: 0; } }
 
-/* CAD link: styled like the Reveal/Mechanical category links it sits next
-   to, not like the icon buttons — the small arrow is enough to show it
-   leaves the site, so no underline. */
-.nav-links a.nav-cad {
+/* External links (team website, CAD): styled like the Reveal/Mechanical
+   category links they sit next to, not like the icon buttons — the small
+   arrow is enough to show they leave the site, so no underline. */
+.nav-links a.nav-external {
   display: inline-flex; align-items: center; gap: 4px;
 }
-.nav-links a.nav-cad svg { width: 12px; height: 12px; flex: none; }
+.nav-links a.nav-external svg { width: 12px; height: 12px; flex: none; }
 
 @media (max-width: 940px) {
   .nav-links { display: none; }
@@ -680,6 +670,11 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 
 /* ---- 9b. Sponsors ------------------------------------------ */
 
+/* Two sponsor moments, matching the main site's quiet banner: one right
+   under the hero (no label), one near the footer (labelled). Same row
+   layout and logo size in both places — the binder doesn't need the main
+   site's bigger, tiered "Our Sponsors" section. */
+
 .sponsors {
   border-top: 1px solid var(--rule);
   padding: 48px 0 32px;
@@ -690,12 +685,12 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
   letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3);
   margin-bottom: 28px;
 }
-.sponsors-row {
+.sponsor-banner-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-  gap: 36px 48px;
+  gap: 18px 34px;
 }
 .sponsor-logo {
-  height: 44px; max-width: 160px;
+  height: 26px; max-width: 104px;
   width: auto; object-fit: contain;
   filter: grayscale(1) opacity(.7);
   transition: filter .15s;
@@ -705,7 +700,6 @@ a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
 .sponsors-hero {
   border-top: none; padding: 32px 0 0; margin-top: 8px;
 }
-.sponsors-hero .sponsor-logo { height: 32px; max-width: 120px; }
 
 /* ---- 10. Footer ------------------------------------------ */
 

@@ -27,6 +27,7 @@ window.BINDER_CONTENT = {
     tagline: "Full-width slap-down intake feeding a spindexer hopper, into a 360° turreted shooter. And an L1 climb.",
     accent: "#0a7770",
     logo: "assets/img/logo.svg",
+    website: "https://teamkoalafied.com",
     cad: "https://cad.onshape.com/documents/f777e2d9e964fbf60835e3da/w/235a7544344677d127d5777e/e/62d9f4aee1b8ab6f94113ccb"
   },
 
@@ -65,7 +66,8 @@ window.BINDER_CONTENT = {
     { name: "REDARC", logo: "assets/img/sponsors/redarc.png" },
     { name: "Energy Exemplar", logo: "assets/img/sponsors/energy-exemplar.png" },
     { name: "C&J Accountants and Advisors", logo: "assets/img/sponsors/cj-accountants.png" },
-    { name: "WHi", logo: "assets/img/sponsors/whi.png" }
+    { name: "WHi", logo: "assets/img/sponsors/whi.png" },
+    { name: "Rockwell Automation", logo: "assets/img/sponsors/rockwell-automation.svg" }
   ],
 
   /* ------------------------------------------------------------
