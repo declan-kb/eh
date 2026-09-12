@@ -174,12 +174,12 @@ domain and point a DNS record at GitHub.
 
 ```
 index.html            web version
-print.html             paged A4 version, has a Print / Save as PDF button
+print.html            paged A4 version, has a Print / Save as PDF button
 content.js            all content lives here
 assets/css/binder.css site styles and design tokens
 assets/css/print.css  paper layout
 assets/js/binder.js   renders content.js into the page
 assets/js/print.js    renders content.js into A4 sheets
-assets/img/           images — currently all placeholders (see above)
+assets/img/           images
 assets/img/logo.svg   team logo (vector) — nav mark, favicon and print cover
 ```
