@@ -8,6 +8,8 @@
    Rules:
      - Every section needs: id, category, title, thesis
      - "thesis" is the one-line summary shown under the title
+     - Set "print: false" on a section to leave it out of print.html
+       (e.g. a video-only section with nothing worth putting on paper)
      - "features" is an optional bullet list; leave [] to hide it
      - "media" is a list of blocks, rendered top to bottom. Every
        block type below can take an optional "label" — it prints
@@ -24,7 +26,8 @@ window.BINDER_CONTENT = {
     robot: "LEMON LAUNCHER",
     tagline: "Full-width slap-down intake feeding a spindexer hopper, into a 360° turreted shooter. And an L1 climb.",
     accent: "#0a7770",
-    logo: "assets/img/logo.svg"
+    logo: "assets/img/logo.svg",
+    cad: "https://cad.onshape.com/documents/f777e2d9e964fbf60835e3da/w/235a7544344677d127d5777e/e/62d9f4aee1b8ab6f94113ccb"
   },
 
   hero: {
@@ -57,7 +60,8 @@ window.BINDER_CONTENT = {
   sponsors: [
     { name: "Gene Haas Foundation", logo: "assets/img/sponsors/gene-haas-foundation.png" },
     { name: "South Australia — The Defence State", logo: "assets/img/sponsors/sa-defence-state.png" },
-    { name: "Adelaide University — Australian Institute for Machine Learning", logo: "assets/img/sponsors/AIML.png" },
+    { name: "Pembroke School", logo: "assets/img/sponsors/pembroke.svg" },
+    { name: "Australian Institute for Machine Learning", logo: "assets/img/sponsors/AIML.png" },
     { name: "REDARC", logo: "assets/img/sponsors/redarc.png" },
     { name: "Energy Exemplar", logo: "assets/img/sponsors/energy-exemplar.png" },
     { name: "C&J Accountants and Advisors", logo: "assets/img/sponsors/cj-accountants.png" },
@@ -115,6 +119,7 @@ window.BINDER_CONTENT = {
       title: "Reveal Video",
       thesis: "Our season reveal.",
       features: [],
+      print: false, // video has nothing to show on paper — leave it out of print.html
       media: [
         { type: "video", youtube: "NSD_GfRYMus", title: "Team 6996 Koalafied — 2026 Reveal" }
       ]

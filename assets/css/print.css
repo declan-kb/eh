@@ -37,12 +37,47 @@ body { background: #8b8b8b; }
 }
 
 /* Cover */
-.cover { justify-content: center; align-items: center; text-align: center; }
-.cover img { width: 62mm; margin-bottom: 12mm; }
-.cover .kicker { font-family: var(--font-mono); font-size: 10pt; letter-spacing: .3em; text-transform: uppercase; color: #666; }
-.cover h1 { font-size: 40pt; font-weight: 800; font-style: italic; letter-spacing: -.03em; margin: 6mm 0 4mm; }
-.cover .sub { font-size: 12pt; color: #333; max-width: 120mm; }
-.cover .rule { width: 40mm; height: 2px; background: var(--accent); margin: 8mm 0; }
+.cover { text-align: center; }
+
+/* Small header bar, same idea as the website nav wordmark — logo stays
+   compact instead of dominating the page. */
+.cover-head {
+  display: flex; align-items: center; gap: 3mm; text-align: left;
+  padding-bottom: 4mm; margin-bottom: auto; border-bottom: 1px solid #ddd;
+}
+.cover-head .logo { width: 9mm; height: 9mm; }
+.cover-head .n { font-weight: 800; }
+.cover-head .name { color: #555; }
+.cover-head .tag {
+  margin-left: auto; font-family: var(--font-mono); font-size: 8pt;
+  letter-spacing: .1em; text-transform: uppercase; color: #888;
+}
+
+.cover-body {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.cover-body .kicker { font-family: var(--font-mono); font-size: 10pt; letter-spacing: .3em; text-transform: uppercase; color: #666; }
+.cover-body h1 { font-size: 40pt; font-weight: 800; font-style: italic; letter-spacing: -.03em; margin: 6mm 0 4mm; }
+.cover-body .sub { font-size: 12pt; color: #333; max-width: 120mm; }
+.cover-body .rule { width: 40mm; height: 2px; background: var(--accent); margin: 8mm 0; }
+
+.cover-hero-wrap { position: relative; width: 130mm; max-width: 100%; margin-top: 10mm; }
+.cover-hero-wrap .cover-hero { width: 100%; display: block; }
+.cover-hero-dot {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 5mm; height: 5mm; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-family: var(--font-mono); font-size: 7pt; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+.cover-legend {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2mm 8mm;
+  margin-top: 6mm; width: 150mm; max-width: 100%;
+  text-align: left; font-size: 8.5pt; color: #333;
+}
+.cover-legend .item { display: flex; gap: 2mm; }
+.cover-legend .item b { color: var(--accent); flex: none; }
 
 /* Table of contents */
 .p-toc h2 { font-size: 22pt; margin-bottom: 8mm; }

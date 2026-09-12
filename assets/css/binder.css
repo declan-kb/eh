@@ -170,6 +170,14 @@ code {
 }
 @media (max-width: 500px) { .nav-menu-label { display: none; } .nav-menu-btn { width: 32px; padding: 0; } }
 
+/* CAD link: styled like the Reveal/Mechanical category links it sits next
+   to, not like the icon buttons — the small arrow is enough to show it
+   leaves the site, so no underline. */
+.nav-links a.nav-cad {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-links a.nav-cad svg { width: 12px; height: 12px; flex: none; }
+
 @media (max-width: 940px) {
   .nav-links { display: none; }
   .wordmark-tag { display: none; }
